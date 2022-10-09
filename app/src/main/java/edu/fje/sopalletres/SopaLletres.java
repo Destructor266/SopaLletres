@@ -22,6 +22,9 @@ public class SopaLletres extends AppCompatActivity {
     }
 
     private void GenerarSopaLleteres(){
+
+        //Tabla Dinamica creada, falta poner las letras en vertical y en diagonal de manera aleatoria
+
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
         String[][] Lletres = {
