@@ -7,28 +7,28 @@
 
     <TextView
         android:id="@+id/tvTime"
-        android:layout_width="379dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="1dp"
+        android:layout_width="375dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="3dp"
         android:layout_marginTop="31dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="35dp"
         android:background="#D9D9D9"
         android:gravity="center"
         android:text="5:00"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/tlSopa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvParaules"
-        android:layout_width="379dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="26dp"
+        android:layout_width="360dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="25dp"
         android:background="#D9D9D9"
         android:gravity="center"
         android:text="Paraules a trobar"
@@ -36,27 +36,14 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/tvParaules"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tlSopa" />
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="384dp"
-        android:layout_height="134dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="373dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
         android:layout_marginBottom="55dp"
         android:background="@color/green"
         android:orientation="vertical"
@@ -64,7 +51,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvParaules">
-        >
-    </LinearLayout>
+        ></LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tlSopa"
+        android:layout_width="382dp"
+        android:layout_height="291dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvParaules"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

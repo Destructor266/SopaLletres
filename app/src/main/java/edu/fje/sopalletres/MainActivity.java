@@ -9,10 +9,12 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private Button boto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Button boto;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getWindow().setStatusBarColor(10);
