@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().setStatusBarColor(10);
+        //getWindow().setStatusBarColor(10);
 
         boto = findViewById(R.id.btJugar);
         boto.setOnClickListener(this);

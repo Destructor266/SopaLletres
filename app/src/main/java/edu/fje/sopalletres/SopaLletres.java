@@ -10,8 +10,8 @@ public class SopaLletres extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sopalletres);
-        getWindow().setStatusBarColor(10);
+        //getWindow().setStatusBarColor(10);
 
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
     }
 }
