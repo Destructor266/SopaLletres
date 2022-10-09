@@ -91,7 +91,6 @@ public class SopaLletres extends AppCompatActivity {
                 TextView tv = new TextView(this);
                 tv.setText(Lletres[columna][fila]);
 
-
                 trParaulesATrobar.addView(tv);
 
                 fila++;
