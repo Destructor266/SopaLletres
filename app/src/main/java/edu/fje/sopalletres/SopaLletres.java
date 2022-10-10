@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.logging.Level;
+
 public class SopaLletres extends AppCompatActivity {
 
     private static final String[][] Lletres = {
@@ -47,10 +49,13 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println("fila: " + fila);
 
                 // IMPORTANTE
-                //columna = (int) (Math.random()* Lletres.length - Lletres[(int) fila].length);
+                //int LletraAleat = (int) (Math.random() * Lletres.length - paraula.length);
+
+                //System.out.println(Lletres.length);
 
                 Button btn = new Button(this);
                 btn.setText(Lletres[columna][fila]);
+
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
