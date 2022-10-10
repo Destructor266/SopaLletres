@@ -47,7 +47,7 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println("fila: " + fila);
 
                 // IMPORTANTE
-                //columna = Math.random()*4 - paraula.length();
+                //columna = (int) (Math.random()* Lletres.length - Lletres[(int) fila].length);
 
                 Button btn = new Button(this);
                 btn.setText(Lletres[columna][fila]);
