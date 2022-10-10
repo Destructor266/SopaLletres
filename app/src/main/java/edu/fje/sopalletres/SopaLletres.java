@@ -12,14 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SopaLletres extends AppCompatActivity {
 
-    private String[][] Lletres = {
+    private static final String[][] Lletres = {
             {"H", "O", "L", "A"},
             {"A","D","E","U"},
             {"C", "A", "S", "A"},
             {"P","O","C","A"}
     };
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,20 +35,19 @@ public class SopaLletres extends AppCompatActivity {
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
 
-        int columna = 0;
-
-        while(columna < Lletres.length){
-
-            int fila = 0;
+        for (int columna = 0; columna < Lletres.length; columna++){
 
             trSopaLletres = new TableRow(this);
             TlSopaLletres.addView(trSopaLletres);
 
             //System.out.println("Columna: " + columna);
 
-            while (fila < Lletres[columna].length){
+            for (int fila = 0; fila < Lletres[columna].length; fila++){
 
                 //System.out.println("fila: " + fila);
+
+                // IMPORTANTE
+                //columna = Math.random()*4 - paraula.length();
 
                 Button btn = new Button(this);
                 btn.setText(Lletres[columna][fila]);
@@ -60,12 +58,8 @@ public class SopaLletres extends AppCompatActivity {
                         System.out.println(v.getId());
                     }
                 });
-
                 trSopaLletres.addView(btn);
-
-                fila++;
             }
-            columna++;
         }
     }
 
@@ -73,18 +67,14 @@ public class SopaLletres extends AppCompatActivity {
         TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
         TableRow trParaulesATrobar = null;
 
-        int columna = 0;
-
-        while(columna < Lletres.length){
-
-            int fila = 0;
+        for (int columna = 0; columna < Lletres.length; columna++){
 
             trParaulesATrobar = new TableRow(this);
             tlParaulesATrobar.addView(trParaulesATrobar);
 
             //System.out.println("Columna: " + columna);
 
-            while (fila < Lletres[columna].length){
+            for (int fila = 0; fila < Lletres[columna].length; fila++) {
 
                 //System.out.println("fila: " + fila);
 
@@ -92,10 +82,7 @@ public class SopaLletres extends AppCompatActivity {
                 tv.setText(Lletres[columna][fila]);
 
                 trParaulesATrobar.addView(tv);
-
-                fila++;
             }
-            columna++;
         }
     }
 }
