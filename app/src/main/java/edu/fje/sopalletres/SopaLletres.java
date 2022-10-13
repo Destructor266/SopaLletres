@@ -18,7 +18,9 @@ public class SopaLletres extends AppCompatActivity {
             {"H", "O", "L", "A"},
             {"A","D","E","U"},
             {"C", "A", "S", "A"},
-            {"P","O","C","A"}
+            {"P","O","C","A"},
+            {"P","E","R","E"},
+            {"C","O","S","A"},
     };
     
     @Override
@@ -49,20 +51,31 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println("fila: " + fila);
 
                 // IMPORTANTE
-                //int LletraAleat = (int) (Math.random() * Lletres.length - paraula.length);
+                int paraula = Lletres[columna].length;
 
-                //System.out.println(Lletres.length);
+                //System.out.println("Paraula: " + paraula);
+                //System.out.println("Lletres.length" + Lletres.length);
+
+                int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
+
+                //System.out.println(LletraAleat);
 
                 Button btn = new Button(this);
                 btn.setText(Lletres[columna][fila]);
 
+                if (buttonText.isEmpty()){
+                    btn.setText(LletraAleat);
+                }
 
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println(v.getId());
-                    }
-                });
+                /*
+                   btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            System.out.println(v.getId());
+                        }
+                    });
+                 */
+                
                 trSopaLletres.addView(btn);
             }
         }
