@@ -20,7 +20,7 @@ public class SopaLletres extends AppCompatActivity {
             {"C", "A", "S", "A"},
             {"P","O","C","A"},
             {"P","E","R","E"},
-            {"C","O","S","A"},
+            {},
     };
     
     @Override
@@ -39,6 +39,8 @@ public class SopaLletres extends AppCompatActivity {
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
 
+        int ID = 0;
+
         for (int columna = 0; columna < Lletres.length; columna++){
 
             trSopaLletres = new TableRow(this);
@@ -47,6 +49,8 @@ public class SopaLletres extends AppCompatActivity {
             //System.out.println("Columna: " + columna);
 
             for (int fila = 0; fila < Lletres[columna].length; fila++){
+
+
 
                 //System.out.println("fila: " + fila);
 
@@ -61,20 +65,23 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println(LletraAleat);
 
                 Button btn = new Button(this);
+                btn.setId(ID);
+                ID++;
                 btn.setText(Lletres[columna][fila]);
+                String buttonText = btn.getText().toString();
 
-                if (buttonText.isEmpty()){
-                    btn.setText(LletraAleat);
+                if (ID == (int) Math.abs((Math.random() * ID))){
+                    btn.setText(Lletres[columna][LletraAleat]);
                 }
 
-                /*
-                   btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            System.out.println(v.getId());
-                        }
-                    });
-                 */
+
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println(v.getId());
+                    }
+                });
+
                 
                 trSopaLletres.addView(btn);
             }
