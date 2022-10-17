@@ -50,8 +50,6 @@ public class SopaLletres extends AppCompatActivity {
 
             for (int fila = 0; fila < Lletres[columna].length; fila++){
 
-
-
                 //System.out.println("fila: " + fila);
 
                 // IMPORTANTE
@@ -61,6 +59,7 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println("Lletres.length" + Lletres.length);
 
                 int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
+                int IDaleat = (int) Math.abs((Math.random() * ID));
 
                 //System.out.println(LletraAleat);
 
@@ -70,9 +69,12 @@ public class SopaLletres extends AppCompatActivity {
                 btn.setText(Lletres[columna][fila]);
                 String buttonText = btn.getText().toString();
 
-                if (ID == (int) Math.abs((Math.random() * ID))){
-                    btn.setText(Lletres[columna][LletraAleat]);
+                if (ID == IDaleat){
+                    btn.setText(Lletres[1][4]);
                 }
+
+                System.out.println((int) Math.abs((Math.random() * ID)));
+                System.out.println("ID " + ID);
 
 
                 btn.setOnClickListener(new View.OnClickListener() {

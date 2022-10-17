@@ -9,6 +9,19 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    /*
+    Diagrama UML
+    Barra acció
+    Aleatorietat aparació mots
+    Extreure mots en XML
+    Ajuda amb WebView
+    SQLite
+    Extreure els mots de contactes
+    MVC
+     */
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button boto;
