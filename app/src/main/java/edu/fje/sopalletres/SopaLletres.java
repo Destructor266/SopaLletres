@@ -59,7 +59,7 @@ public class SopaLletres extends AppCompatActivity {
                 //System.out.println("Lletres.length" + Lletres.length);
 
                 int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
-                int IDaleat = (int) Math.abs((Math.random() * ID));
+                int IDaleat = (int) Math.abs((Math.random() * 20));
 
                 //System.out.println(LletraAleat);
 
@@ -69,13 +69,12 @@ public class SopaLletres extends AppCompatActivity {
                 btn.setText(Lletres[columna][fila]);
                 String buttonText = btn.getText().toString();
 
-                if (ID == IDaleat){
-                    btn.setText(Lletres[1][4]);
+                if (LletraAleat == IDaleat){
+                    btn.setText(Lletres[columna][LletraAleat]);
                 }
 
-                System.out.println((int) Math.abs((Math.random() * ID)));
-                System.out.println("ID " + ID);
-
+                System.out.println(LletraAleat);
+                System.out.println(fila);
 
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -84,7 +83,6 @@ public class SopaLletres extends AppCompatActivity {
                     }
                 });
 
-                
                 trSopaLletres.addView(btn);
             }
         }
