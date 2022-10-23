@@ -67,7 +67,7 @@ public class SopaLletres extends AppCompatActivity {
                 btn.setId(ID);
                 ID++;
                 btn.setText(Lletres[columna][fila]);
-                String buttonText = btn.getText().toString();
+                //String buttonText = btn.getText().toString();
 
                 if (LletraAleat == IDaleat){
                     btn.setText(Lletres[columna][LletraAleat]);
