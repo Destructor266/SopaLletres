@@ -16,10 +16,10 @@ public class SopaLletres extends AppCompatActivity {
 
     private static final String[][] Lletres = {
             {"H", "O", "L", "A"},
-            {"A","D","E","U"},
+            {"A", "D", "E", "U"},
             {"C", "A", "S", "A"},
-            {"P","O","C","A"},
-            {"P","E","R","E"},
+            {"P", "O", "C", "A"},
+            {"P", "E", "R", "E"},
             {},
     };
     
@@ -27,9 +27,6 @@ public class SopaLletres extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sopalletres);
-        //getWindow().setStatusBarColor(10);
-
-        //Intent intent = getIntent();
 
         GenerarSopaLleteres();
         GenerarParaulesATrobar();
@@ -39,50 +36,24 @@ public class SopaLletres extends AppCompatActivity {
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
 
-        int ID = 0;
-
         for (int columna = 0; columna < Lletres.length; columna++){
 
             trSopaLletres = new TableRow(this);
             TlSopaLletres.addView(trSopaLletres);
 
-            //System.out.println("Columna: " + columna);
-
             for (int fila = 0; fila < Lletres[columna].length; fila++){
 
-                //System.out.println("fila: " + fila);
-
-                // IMPORTANTE
                 int paraula = Lletres[columna].length;
 
-                //System.out.println("Paraula: " + paraula);
-                //System.out.println("Lletres.length" + Lletres.length);
-
                 int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
-                int IDaleat = (int) Math.abs((Math.random() * 20));
-
-                //System.out.println(LletraAleat);
+                int IDaleat = (int) Math.abs((Math.random() * 4));
 
                 Button btn = new Button(this);
-                btn.setId(ID);
-                ID++;
                 btn.setText(Lletres[columna][fila]);
-                //String buttonText = btn.getText().toString();
 
                 if (LletraAleat == IDaleat){
-                    btn.setText(Lletres[columna][LletraAleat]);
+                    //btn.setText(Lletres[LletraAleat][LletraAleat]);
                 }
-
-                System.out.println(LletraAleat);
-                System.out.println(fila);
-
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println(v.getId());
-                    }
-                });
-
                 trSopaLletres.addView(btn);
             }
         }
@@ -97,11 +68,7 @@ public class SopaLletres extends AppCompatActivity {
             trParaulesATrobar = new TableRow(this);
             tlParaulesATrobar.addView(trParaulesATrobar);
 
-            //System.out.println("Columna: " + columna);
-
             for (int fila = 0; fila < Lletres[columna].length; fila++) {
-
-                //System.out.println("fila: " + fila);
 
                 TextView tv = new TextView(this);
                 tv.setText(Lletres[columna][fila]);
