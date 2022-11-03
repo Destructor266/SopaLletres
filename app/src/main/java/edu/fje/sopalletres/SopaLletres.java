@@ -20,7 +20,7 @@ public class SopaLletres extends AppCompatActivity {
             {"C", "A", "S", "A"},
             {"", "", "", ""},
     };
-     */
+    */
 
     private int click = 0;
     private Button[][] btn = new Button[6][4];
@@ -40,7 +40,6 @@ public class SopaLletres extends AppCompatActivity {
     private Button[][] GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
-        //Button[] btnr = new Button[16];
         int ID = 0;
 
         for (int columna = 0; columna < Lletres.length; columna++){
@@ -49,12 +48,6 @@ public class SopaLletres extends AppCompatActivity {
             TlSopaLletres.addView(trSopaLletres);
 
             for (int fila = 0; fila < Lletres[columna].length(); fila++) {
-
-                int paraula = Lletres[columna].length();
-                System.out.println(paraula);
-
-                int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
-                System.out.println(LletraAleat);
 
                 btnr[columna][fila] = new Button(this);
                 btnr[columna][fila].setId(ID);
@@ -78,7 +71,7 @@ public class SopaLletres extends AppCompatActivity {
                         }
                     }
                 });
-                 */
+                */
 
 
             }
@@ -86,11 +79,22 @@ public class SopaLletres extends AppCompatActivity {
         return btnr;
     }
 
+    private void SopaDeLletresVertical(String[] Lletres, Button[][] btnc){
+        //buttons[0][1].setText(String.valueOf(Lletres[0].charAt(0)));
+        //buttons[1][1].setText(String.valueOf(Lletres[0].charAt(1)));
+        //buttons[2][1].setText(String.valueOf(Lletres[0].charAt(2)));
+        //buttons[3][1].setText(String.valueOf(Lletres[0].charAt(3)));
 
-    //Generar array buttons de la funcion anterior y modificar los valores de las verticales
 
-    private void SopaDeLletresVertical(String[] Lletres, Button[][] buttons){
-        buttons[3][1].setText(String.valueOf(Lletres[0].charAt(2)));
+
+
+        for (int i = 0; i < Lletres.length; i++) {
+            btnc[i][1].setText(String.valueOf(Lletres[0].charAt(i)));
+            btnc[i][3].setText(String.valueOf(Lletres[2].charAt(i)));
+        }
+
+
+
     }
 
 
