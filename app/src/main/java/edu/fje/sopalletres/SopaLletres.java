@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.logging.Level;
+
 public class SopaLletres extends AppCompatActivity {
 
     /*
@@ -34,6 +36,7 @@ public class SopaLletres extends AppCompatActivity {
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
+        FuncionalitatBoto(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
     }
 
@@ -55,25 +58,6 @@ public class SopaLletres extends AppCompatActivity {
                 btnr[columna][fila].setText(String.valueOf(Lletres[columna].charAt(fila)));
                 trSopaLletres.addView(btnr[columna][fila]);
 
-
-
-                /*
-                Button finalBtnr = btnr;
-                btn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        System.out.println("click " + click);
-                        click++;
-                        finalBtnr.setBackgroundColor(Color.RED);
-                        System.out.println("ID" + finalBtnr.getId());
-                        if (click > 4){
-                            //finalBtnr.setBackground();
-                        }
-                    }
-                });
-                */
-
-
             }
         }
         //return btnr;
@@ -92,7 +76,43 @@ public class SopaLletres extends AppCompatActivity {
     }
 
 
+    private void FuncionalitatBoto(String[] Lletres, Button[][] btn){
+        Button[][] finalBtnr = btn;
+        String paraula = "";
+        StringBuilder paraulaB = new StringBuilder(paraula);
 
+        for (int columna = 0; columna < Lletres.length; columna++) {
+            for (int fila = 0; fila < Lletres[columna].length(); fila++) {
+                int finalColumna = columna;
+                int finalFila = fila;
+                btn[columna][fila].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String TextBoto = finalBtnr[finalColumna][finalFila].getText().toString();
+                        paraulaB.append(TextBoto);
+                        System.out.println(TextBoto);
+                        if (paraulaB.length() == Lletres[finalColumna].length()){
+                            System.out.println("Primer IF");
+                            String paraulaComprovar = paraulaB.toString();
+                            System.out.println("Comprovacio " + paraulaComprovar);
+                            System.out.println(Lletres[0]);
+                            if (paraulaComprovar.equals(Lletres[0])){
+                                System.out.println("Segon IF");
+                                finalBtnr[finalColumna][finalFila].setEnabled(false);
+                                finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.GREEN);
+                            }
+                        }
+                        click++;
+                        System.out.println(paraulaB.length());
+                        System.out.println(Lletres[finalColumna].charAt(finalFila));
+                        finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.RED);
+                    }
+                });
+            }
+        }
+        
+
+    }
 
 
     private void GenerarParaulesATrobar(String[] Lletres){
