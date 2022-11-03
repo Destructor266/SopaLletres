@@ -1,5 +1,6 @@
 package edu.fje.sopalletres;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class SopaLletres extends AppCompatActivity {
      */
 
     private int click = 0;
+    private Button[][] btn = new Button[6][4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,15 +32,16 @@ public class SopaLletres extends AppCompatActivity {
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
 
-        GenerarSopaLleteres(Lletres);
+        GenerarSopaLleteres(Lletres, btn);
+        SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
     }
 
-    private void GenerarSopaLleteres(String[] Lletres){
+    private Button[][] GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
-        Button btnr = null;
-
+        //Button[] btnr = new Button[16];
+        int ID = 0;
 
         for (int columna = 0; columna < Lletres.length; columna++){
 
@@ -48,33 +51,51 @@ public class SopaLletres extends AppCompatActivity {
             for (int fila = 0; fila < Lletres[columna].length(); fila++) {
 
                 int paraula = Lletres[columna].length();
+                System.out.println(paraula);
 
                 int LletraAleat = (int) Math.abs((Math.random() * Lletres.length - paraula));
+                System.out.println(LletraAleat);
 
-                btnr = new Button(this);
-                btnr.setText(String.valueOf(Lletres[columna].charAt(fila)));
+                btnr[columna][fila] = new Button(this);
+                btnr[columna][fila].setId(ID);
+                ID++;
+                btnr[columna][fila].setText(String.valueOf(Lletres[columna].charAt(fila)));
+                trSopaLletres.addView(btnr[columna][fila]);
 
-                trSopaLletres.addView(btnr);
 
+
+                /*
                 Button finalBtnr = btnr;
-                btnr.setOnClickListener(new View.OnClickListener() {
+                btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        System.out.println(click);
+                        System.out.println("click " + click);
                         click++;
                         finalBtnr.setBackgroundColor(Color.RED);
+                        System.out.println("ID" + finalBtnr.getId());
                         if (click > 4){
                             //finalBtnr.setBackground();
                         }
                     }
                 });
-            }
-            //btnc.setText(String.valueOf(Lletres[columna].charAt(1)));
-            //trSopaLletres.addView(btnc);
+                 */
 
-            //trSopaLletres.addView(btnr);
+
+            }
         }
+        return btnr;
     }
+
+
+    //Generar array buttons de la funcion anterior y modificar los valores de las verticales
+
+    private void SopaDeLletresVertical(String[] Lletres, Button[][] buttons){
+        buttons[3][1].setText(String.valueOf(Lletres[0].charAt(2)));
+    }
+
+
+
+
 
     private void GenerarParaulesATrobar(String[] Lletres){
         TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
@@ -87,6 +108,7 @@ public class SopaLletres extends AppCompatActivity {
 
             TextView tv = new TextView(this);
             tv.setText(String.valueOf(Lletres[columna]));
+            //tv.getPaint().setStrikeThruText(true);
 
             trParaulesATrobar.addView(tv);
         }
