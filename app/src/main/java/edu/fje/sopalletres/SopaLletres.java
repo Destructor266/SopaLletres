@@ -37,7 +37,7 @@ public class SopaLletres extends AppCompatActivity {
         GenerarParaulesATrobar(Lletres);
     }
 
-    private Button[][] GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
+    private void GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
         int ID = 0;
@@ -76,7 +76,7 @@ public class SopaLletres extends AppCompatActivity {
 
             }
         }
-        return btnr;
+        //return btnr;
     }
 
     private void SopaDeLletresVertical(String[] Lletres, Button[][] btnc){
@@ -85,16 +85,10 @@ public class SopaLletres extends AppCompatActivity {
         //buttons[2][1].setText(String.valueOf(Lletres[0].charAt(2)));
         //buttons[3][1].setText(String.valueOf(Lletres[0].charAt(3)));
 
-
-
-
         for (int i = 0; i < Lletres.length; i++) {
             btnc[i][1].setText(String.valueOf(Lletres[0].charAt(i)));
             btnc[i][3].setText(String.valueOf(Lletres[2].charAt(i)));
         }
-
-
-
     }
 
 
