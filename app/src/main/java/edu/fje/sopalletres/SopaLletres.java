@@ -1,6 +1,5 @@
 package edu.fje.sopalletres;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +9,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.logging.Level;
 
 public class SopaLletres extends AppCompatActivity {
 
@@ -24,7 +21,6 @@ public class SopaLletres extends AppCompatActivity {
     };
     */
 
-    private int click = 0;
     private Button[][] btn = new Button[6][4];
 
     @Override
@@ -36,8 +32,9 @@ public class SopaLletres extends AppCompatActivity {
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
-        FuncionalitatBoto(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
+        FuncionalitatBoto(Lletres, btn);
+
     }
 
     private void GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
@@ -80,6 +77,7 @@ public class SopaLletres extends AppCompatActivity {
         Button[][] finalBtnr = btn;
         String paraula = "";
         StringBuilder paraulaB = new StringBuilder(paraula);
+        int Puntuacio = 0;
 
         for (int columna = 0; columna < Lletres.length; columna++) {
             for (int fila = 0; fila < Lletres[columna].length(); fila++) {
@@ -90,28 +88,34 @@ public class SopaLletres extends AppCompatActivity {
                     public void onClick(View v) {
                         String TextBoto = finalBtnr[finalColumna][finalFila].getText().toString();
                         paraulaB.append(TextBoto);
-                        System.out.println(TextBoto);
                         if (paraulaB.length() == Lletres[finalColumna].length()){
-                            System.out.println("Primer IF");
                             String paraulaComprovar = paraulaB.toString();
-                            System.out.println("Comprovacio " + paraulaComprovar);
-                            System.out.println(Lletres[0]);
+                            paraulaB.setLength(0);
                             if (paraulaComprovar.equals(Lletres[0])){
-                                System.out.println("Segon IF");
-                                finalBtnr[finalColumna][finalFila].setEnabled(false);
-                                finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.GREEN);
+                                Puntuacio = SumarPuntacio(Puntuacio);
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            } else if (paraulaComprovar.equals(Lletres[1])){
+                                Puntuacio = SumarPuntacio(Puntuacio);
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            } else if (paraulaComprovar.equals(Lletres[2])){
+                                Puntuacio = SumarPuntacio(Puntuacio);
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            } else if (paraulaComprovar.equals(Lletres[3])){
+                                Puntuacio = SumarPuntacio(Puntuacio);
+                                //System.out.println(SumarPuntacio(Puntacio));
                             }
                         }
-                        click++;
-                        System.out.println(paraulaB.length());
-                        System.out.println(Lletres[finalColumna].charAt(finalFila));
+                        System.out.println(Puntuacio);
                         finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.RED);
                     }
                 });
             }
         }
-        
+    }
 
+    private int SumarPuntacio(int puntacio) {
+        puntacio += 10;
+        return puntacio;
     }
 
 
