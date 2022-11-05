@@ -1,6 +1,9 @@
 package edu.fje.sopalletres;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +12,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Date;
 
 public class SopaLletres extends AppCompatActivity {
 
@@ -29,11 +34,15 @@ public class SopaLletres extends AppCompatActivity {
         setContentView(R.layout.sopalletres);
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
+        final int[] Puntuacio = {0};
+        final String BASE_DADES = "SopaLletres";
+        final String TAULA = "Puntuacions";
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
-        FuncionalitatBoto(Lletres, btn);
+        FuncionalitatBoto(Lletres, Puntuacio, btn);
+        PuntuacioBaseDeDades(Puntuacio, BASE_DADES, TAULA);
 
     }
 
@@ -89,8 +98,7 @@ public class SopaLletres extends AppCompatActivity {
         }
     }
 
-    private void FuncionalitatBoto(String[] Lletres, Button[][] btn){
-        final int[] Puntuacio = {0};
+    private int[] FuncionalitatBoto(String[] Lletres, int[] Puntuacio, Button[][] btn){
         Button[][] finalBtnr = btn;
         String paraula = "";
         StringBuilder paraulaB = new StringBuilder(paraula);
@@ -109,13 +117,22 @@ public class SopaLletres extends AppCompatActivity {
                             paraulaB.setLength(0);
                             if (paraulaComprovar.equals(Lletres[0])){
                                 Puntuacio[0] += 10;
-                                //System.out.println(SumarPuntacio(Puntacio));
+                                TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
+                                TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(0);
+                                TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
+                                TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             } else if (paraulaComprovar.equals(Lletres[1])){
                                 Puntuacio[0] += 10;
-                                //System.out.println(SumarPuntacio(Puntacio));
+                                TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
+                                TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(1);
+                                TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
+                                TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             } else if (paraulaComprovar.equals(Lletres[2])){
                                 Puntuacio[0] += 10;
-                                //System.out.println(SumarPuntacio(Puntacio));
+                                TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
+                                TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(2);
+                                TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
+                                TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                             }
                         }
                         System.out.println(Puntuacio[0]);
@@ -124,5 +141,52 @@ public class SopaLletres extends AppCompatActivity {
                 });
             }
         }
+        return Puntuacio;
     }
+
+    private void PuntuacioBaseDeDades(int[] Puntuacio, String BASE_DADES, String TAULA){
+        SQLiteDatabase baseDades = null;
+        int dPuntuacio = Puntuacio[0];
+
+        try {
+            baseDades = this.openOrCreateDatabase(BASE_DADES, MODE_PRIVATE, null);
+
+            baseDades.execSQL("CREATE TABLE IF NOT EXISTS " + TAULA + "(puntuacio INT(4), " +
+                    "data VARCHAR);");
+
+            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES (\" + dPuntuacio + \", '\" + date() + \"')");
+
+            Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA, null);
+
+            int columnaPuntuacio = c.getColumnIndex("puntuacio");
+            int columnaData = c.getColumnIndex("data");
+
+
+            if (c != null){
+                if (c.isBeforeFirst()){
+                    c.moveToFirst();
+                    int i = 0;
+
+                    do {
+                        i++;
+
+                        int puntuacio = c.getInt(columnaPuntuacio);
+                        int data = c.getInt(columnaData);
+
+                    }while (c.moveToNext());
+
+                }
+            }
+        }finally {
+            if (baseDades != null){
+                baseDades.close();
+            }
+        }
+
+
+    }
+
+
+
+
 }
