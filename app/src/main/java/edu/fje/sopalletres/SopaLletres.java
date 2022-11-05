@@ -72,53 +72,6 @@ public class SopaLletres extends AppCompatActivity {
         }
     }
 
-
-    private void FuncionalitatBoto(String[] Lletres, Button[][] btn){
-        Button[][] finalBtnr = btn;
-        String paraula = "";
-        StringBuilder paraulaB = new StringBuilder(paraula);
-        int Puntuacio = 0;
-
-        for (int columna = 0; columna < Lletres.length; columna++) {
-            for (int fila = 0; fila < Lletres[columna].length(); fila++) {
-                int finalColumna = columna;
-                int finalFila = fila;
-                btn[columna][fila].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String TextBoto = finalBtnr[finalColumna][finalFila].getText().toString();
-                        paraulaB.append(TextBoto);
-                        if (paraulaB.length() == Lletres[finalColumna].length()){
-                            String paraulaComprovar = paraulaB.toString();
-                            paraulaB.setLength(0);
-                            if (paraulaComprovar.equals(Lletres[0])){
-                                Puntuacio = SumarPuntacio(Puntuacio);
-                                //System.out.println(SumarPuntacio(Puntacio));
-                            } else if (paraulaComprovar.equals(Lletres[1])){
-                                Puntuacio = SumarPuntacio(Puntuacio);
-                                //System.out.println(SumarPuntacio(Puntacio));
-                            } else if (paraulaComprovar.equals(Lletres[2])){
-                                Puntuacio = SumarPuntacio(Puntuacio);
-                                //System.out.println(SumarPuntacio(Puntacio));
-                            } else if (paraulaComprovar.equals(Lletres[3])){
-                                Puntuacio = SumarPuntacio(Puntuacio);
-                                //System.out.println(SumarPuntacio(Puntacio));
-                            }
-                        }
-                        System.out.println(Puntuacio);
-                        finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.RED);
-                    }
-                });
-            }
-        }
-    }
-
-    private int SumarPuntacio(int puntacio) {
-        puntacio += 10;
-        return puntacio;
-    }
-
-
     private void GenerarParaulesATrobar(String[] Lletres){
         TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
         TableRow trParaulesATrobar = null;
@@ -133,6 +86,43 @@ public class SopaLletres extends AppCompatActivity {
             //tv.getPaint().setStrikeThruText(true);
 
             trParaulesATrobar.addView(tv);
+        }
+    }
+
+    private void FuncionalitatBoto(String[] Lletres, Button[][] btn){
+        final int[] Puntuacio = {0};
+        Button[][] finalBtnr = btn;
+        String paraula = "";
+        StringBuilder paraulaB = new StringBuilder(paraula);
+
+        for (int columna = 0; columna < Lletres.length; columna++) {
+            for (int fila = 0; fila < Lletres[columna].length(); fila++) {
+                int finalColumna = columna;
+                int finalFila = fila;
+                btn[columna][fila].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String TextBoto = finalBtnr[finalColumna][finalFila].getText().toString();
+                        paraulaB.append(TextBoto);
+                        if (paraulaB.length() == Lletres[finalColumna].length()){
+                            String paraulaComprovar = paraulaB.toString();
+                            paraulaB.setLength(0);
+                            if (paraulaComprovar.equals(Lletres[0])){
+                                Puntuacio[0] += 10;
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            } else if (paraulaComprovar.equals(Lletres[1])){
+                                Puntuacio[0] += 10;
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            } else if (paraulaComprovar.equals(Lletres[2])){
+                                Puntuacio[0] += 10;
+                                //System.out.println(SumarPuntacio(Puntacio));
+                            }
+                        }
+                        System.out.println(Puntuacio[0]);
+                        finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.RED);
+                    }
+                });
+            }
         }
     }
 }
