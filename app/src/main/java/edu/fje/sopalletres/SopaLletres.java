@@ -49,7 +49,6 @@ public class SopaLletres extends AppCompatActivity {
     private void GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
         TableRow trSopaLletres = null;
-        int ID = 0;
 
         for (int columna = 0; columna < Lletres.length; columna++){
 
@@ -59,22 +58,14 @@ public class SopaLletres extends AppCompatActivity {
             for (int fila = 0; fila < Lletres[columna].length(); fila++) {
 
                 btnr[columna][fila] = new Button(this);
-                btnr[columna][fila].setId(ID);
-                ID++;
                 btnr[columna][fila].setText(String.valueOf(Lletres[columna].charAt(fila)));
                 trSopaLletres.addView(btnr[columna][fila]);
 
             }
         }
-        //return btnr;
     }
 
     private void SopaDeLletresVertical(String[] Lletres, Button[][] btnc){
-        //buttons[0][1].setText(String.valueOf(Lletres[0].charAt(0)));
-        //buttons[1][1].setText(String.valueOf(Lletres[0].charAt(1)));
-        //buttons[2][1].setText(String.valueOf(Lletres[0].charAt(2)));
-        //buttons[3][1].setText(String.valueOf(Lletres[0].charAt(3)));
-
         for (int i = 0; i < Lletres.length; i++) {
             btnc[i][1].setText(String.valueOf(Lletres[0].charAt(i)));
             btnc[i][3].setText(String.valueOf(Lletres[2].charAt(i)));
@@ -182,11 +173,5 @@ public class SopaLletres extends AppCompatActivity {
                 baseDades.close();
             }
         }
-
-
     }
-
-
-
-
 }
