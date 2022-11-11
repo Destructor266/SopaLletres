@@ -35,14 +35,11 @@ public class SopaLletres extends AppCompatActivity {
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
         final int[] Puntuacio = {0};
-        final String BASE_DADES = "SopaLletres";
-        final String TAULA = "Puntuacions";
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
         FuncionalitatBoto(Lletres, Puntuacio, btn);
-        PuntuacioBaseDeDades(Puntuacio, BASE_DADES, TAULA);
 
     }
 
@@ -112,18 +109,21 @@ public class SopaLletres extends AppCompatActivity {
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(0);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                PuntuacioBaseDeDades(Puntuacio);
                             } else if (paraulaComprovar.equals(Lletres[1])){
                                 Puntuacio[0] += 10;
                                 TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(1);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                PuntuacioBaseDeDades(Puntuacio);
                             } else if (paraulaComprovar.equals(Lletres[2])){
                                 Puntuacio[0] += 10;
                                 TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(2);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                PuntuacioBaseDeDades(Puntuacio);
                             }
                         }
                         System.out.println(Puntuacio[0]);
@@ -135,9 +135,12 @@ public class SopaLletres extends AppCompatActivity {
         return Puntuacio;
     }
 
-    private void PuntuacioBaseDeDades(int[] Puntuacio, String BASE_DADES, String TAULA){
+    private void PuntuacioBaseDeDades(int[] Puntuacio){
         SQLiteDatabase baseDades = null;
         int dPuntuacio = Puntuacio[0];
+        String BASE_DADES = "SopaLletres";
+        String TAULA = "Puntuacions";
+        Date data = new Date();
 
         try {
             baseDades = this.openOrCreateDatabase(BASE_DADES, MODE_PRIVATE, null);
@@ -145,9 +148,9 @@ public class SopaLletres extends AppCompatActivity {
             baseDades.execSQL("CREATE TABLE IF NOT EXISTS " + TAULA + "(puntuacio INT(4), " +
                     "data VARCHAR);");
 
-            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES (\" + dPuntuacio + \", '\" + date() + \"')");
+            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" + dPuntuacio + "," + data.getDate() + ");");
 
-            Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA, null);
+            Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA + " ;", null);
 
             int columnaPuntuacio = c.getColumnIndex("puntuacio");
             int columnaData = c.getColumnIndex("data");
@@ -162,10 +165,9 @@ public class SopaLletres extends AppCompatActivity {
                         i++;
 
                         int puntuacio = c.getInt(columnaPuntuacio);
-                        int data = c.getInt(columnaData);
+                        //int dataDia = c.getInt(columnaData);
 
                     }while (c.moveToNext());
-
                 }
             }
         }finally {
