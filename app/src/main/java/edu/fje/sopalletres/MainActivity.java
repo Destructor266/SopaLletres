@@ -12,6 +12,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -40,6 +44,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boto = findViewById(R.id.btJugar);
         boto.setOnClickListener(this);
 
+        Intent intent = getIntent();
+        String dataRecuperada = intent.getStringExtra(SopaLletres.dataRecuperada);
+        String PuntuacioRecuperada = intent.getStringExtra(String.valueOf(SopaLletres.puntuacioRecuperada));
+        TaulaPuntuacions(dataRecuperada, PuntuacioRecuperada);
+
+    }
+
+    private void TaulaPuntuacions(String dataRecuperada, String PuntuacioRecuperada){
+        LinearLayout LlTaulaPuntuacions = findViewById(R.id.TaulaPuntuacions);
+        TextView tv = new TextView(this);
+        tv.setText(dataRecuperada + " | " + PuntuacioRecuperada);
+        LlTaulaPuntuacions.addView(tv);
     }
 
     @Override

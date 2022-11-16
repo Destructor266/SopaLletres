@@ -1,5 +1,6 @@
 package edu.fje.sopalletres;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class SopaLletres extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class SopaLletres extends AppCompatActivity {
     */
 
     private Button[][] btn = new Button[6][4];
+    public static int puntuacioRecuperada = 0;
+    public static String dataRecuperada = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -35,11 +40,17 @@ public class SopaLletres extends AppCompatActivity {
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
         final int[] Puntuacio = {0};
+        System.out.println(puntuacioRecuperada);
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
         FuncionalitatBoto(Lletres, Puntuacio, btn);
+        if (puntuacioRecuperada == 40){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(dataRecuperada, puntuacioRecuperada);
+            startActivity(intent);
+        }
 
     }
 
@@ -93,37 +104,59 @@ public class SopaLletres extends AppCompatActivity {
 
         for (int columna = 0; columna < Lletres.length; columna++) {
             for (int fila = 0; fila < Lletres[columna].length(); fila++) {
+
                 int finalColumna = columna;
                 int finalFila = fila;
+
                 btn[columna][fila].setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
+
                         String TextBoto = finalBtnr[finalColumna][finalFila].getText().toString();
                         paraulaB.append(TextBoto);
+
                         if (paraulaB.length() == Lletres[finalColumna].length()){
+
                             String paraulaComprovar = paraulaB.toString();
                             paraulaB.setLength(0);
+
                             if (paraulaComprovar.equals(Lletres[0])){
+
                                 Puntuacio[0] += 10;
                                 TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(0);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                                 PuntuacioBaseDeDades(Puntuacio);
+
                             } else if (paraulaComprovar.equals(Lletres[1])){
+
                                 Puntuacio[0] += 10;
                                 TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(1);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                                 PuntuacioBaseDeDades(Puntuacio);
+
                             } else if (paraulaComprovar.equals(Lletres[2])){
+
                                 Puntuacio[0] += 10;
                                 TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
                                 TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(2);
                                 TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
                                 TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                                 PuntuacioBaseDeDades(Puntuacio);
+
+                            } else if (paraulaComprovar.equals(Lletres[3])){
+
+                                Puntuacio[0] += 10;
+                                TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
+                                TableRow ParaulaperTachar = (TableRow) tlParaulesATrobar.getChildAt(3);
+                                TextView TextperTachar = (TextView) ParaulaperTachar.getChildAt(0);
+                                TextperTachar.setPaintFlags(TextperTachar.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                                PuntuacioBaseDeDades(Puntuacio);
+
                             }
                         }
                         System.out.println(Puntuacio[0]);
@@ -138,17 +171,20 @@ public class SopaLletres extends AppCompatActivity {
     private void PuntuacioBaseDeDades(int[] Puntuacio){
         SQLiteDatabase baseDades = null;
         int dPuntuacio = Puntuacio[0];
+
         String BASE_DADES = "SopaLletres";
         String TAULA = "Puntuacions";
-        Date data = new Date();
+        Calendar cal = new GregorianCalendar();
+        String data = cal.get(Calendar.DAY_OF_MONTH) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
+
 
         try {
             baseDades = this.openOrCreateDatabase(BASE_DADES, MODE_PRIVATE, null);
 
             baseDades.execSQL("CREATE TABLE IF NOT EXISTS " + TAULA + "(puntuacio INT(4), " +
-                    "data VARCHAR);");
+                    "data VARCHAR(20));");
 
-            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" + dPuntuacio + "," + data.getDate() + ");");
+            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" + dPuntuacio + "," + data + ");");
 
             Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA + " ;", null);
 
@@ -158,16 +194,9 @@ public class SopaLletres extends AppCompatActivity {
 
             if (c != null){
                 if (c.isBeforeFirst()){
-                    c.moveToFirst();
-                    int i = 0;
-
-                    do {
-                        i++;
-
-                        int puntuacio = c.getInt(columnaPuntuacio);
-                        //int dataDia = c.getInt(columnaData);
-
-                    }while (c.moveToNext());
+                    c.moveToLast();
+                    puntuacioRecuperada = c.getInt(columnaPuntuacio);
+                    dataRecuperada = c.getString(columnaData);
                 }
             }
         }finally {
