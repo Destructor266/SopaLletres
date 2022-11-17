@@ -3,7 +3,10 @@ package edu.fje.sopalletres;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -31,32 +37,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MVC
      */
 
-
+    int puntuacioRecuperada = 0;
+    String dataRecuperada = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Button boto;
-
+        Button btJugar;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getWindow().setStatusBarColor(10);
 
-        boto = findViewById(R.id.btJugar);
-        boto.setOnClickListener(this);
-
-        Intent intent = getIntent();
-        String dataRecuperada = intent.getStringExtra(SopaLletres.dataRecuperada);
-        String PuntuacioRecuperada = intent.getStringExtra(String.valueOf(SopaLletres.puntuacioRecuperada));
-        TaulaPuntuacions(dataRecuperada, PuntuacioRecuperada);
-
+        btJugar = findViewById(R.id.btJugar);
+        btJugar.setOnClickListener(this);
     }
 
-    private void TaulaPuntuacions(String dataRecuperada, String PuntuacioRecuperada){
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        RecuperadaDades();
+        LeaderBoard();
+    }
+
+    private void RecuperadaDades(){
+        SQLiteDatabase baseDades = null;
+        String BASE_DADES = "SopaLletres";
+        String TAULA = "Puntuacions";
+
+        try {
+            baseDades = this.openOrCreateDatabase(BASE_DADES, MODE_PRIVATE, null);
+            Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA + " ;", null);
+
+            int columnaPuntuacio = c.getColumnIndex("puntuacio");
+            int columnaData = c.getColumnIndex("data");
+
+            //Log.i("cursor", String.valueOf(c.getCount()));
+
+            if (c != null){
+                c.moveToLast();
+                this.puntuacioRecuperada = c.getInt(columnaPuntuacio);
+                this.dataRecuperada = c.getString(columnaData);
+            }
+
+        }finally {
+            if (baseDades != null){
+                baseDades.close();
+            }
+        }
+    }
+
+    private void LeaderBoard(){
         LinearLayout LlTaulaPuntuacions = findViewById(R.id.TaulaPuntuacions);
         TextView tv = new TextView(this);
-        tv.setText(dataRecuperada + " | " + PuntuacioRecuperada);
+        tv.setText(this.dataRecuperada + " | " + this.puntuacioRecuperada);
         LlTaulaPuntuacions.addView(tv);
     }
+
 
     @Override
     public void onClick(View v) {

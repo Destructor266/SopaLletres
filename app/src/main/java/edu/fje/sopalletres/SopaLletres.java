@@ -30,8 +30,6 @@ public class SopaLletres extends AppCompatActivity {
     */
 
     private Button[][] btn = new Button[6][4];
-    public static int puntuacioRecuperada = 0;
-    public static String dataRecuperada = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -40,17 +38,12 @@ public class SopaLletres extends AppCompatActivity {
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
         final int[] Puntuacio = {0};
-        System.out.println(puntuacioRecuperada);
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
         FuncionalitatBoto(Lletres, Puntuacio, btn);
-        if (puntuacioRecuperada == 40){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra(dataRecuperada, puntuacioRecuperada);
-            startActivity(intent);
-        }
+
 
     }
 
@@ -175,7 +168,7 @@ public class SopaLletres extends AppCompatActivity {
         String BASE_DADES = "SopaLletres";
         String TAULA = "Puntuacions";
         Calendar cal = new GregorianCalendar();
-        String data = cal.get(Calendar.DAY_OF_MONTH) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
+        String data = cal.get(Calendar.DAY_OF_MONTH) + "" + cal.get(Calendar.MONTH) + "" + cal.get(Calendar.YEAR);
 
 
         try {
@@ -186,19 +179,6 @@ public class SopaLletres extends AppCompatActivity {
 
             baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" + dPuntuacio + "," + data + ");");
 
-            Cursor c = baseDades.rawQuery("SELECT puntuacio, data" + " FROM " + TAULA + " ;", null);
-
-            int columnaPuntuacio = c.getColumnIndex("puntuacio");
-            int columnaData = c.getColumnIndex("data");
-
-
-            if (c != null){
-                if (c.isBeforeFirst()){
-                    c.moveToLast();
-                    puntuacioRecuperada = c.getInt(columnaPuntuacio);
-                    dataRecuperada = c.getString(columnaData);
-                }
-            }
         }finally {
             if (baseDades != null){
                 baseDades.close();
