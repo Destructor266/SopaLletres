@@ -1,7 +1,8 @@
 package edu.fje.sopalletres;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,10 +13,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class SopaLletres extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class SopaLletres extends AppCompatActivity {
     */
 
     private Button[][] btn = new Button[6][4];
+    final int[] Puntuacio = {0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -37,14 +40,12 @@ public class SopaLletres extends AppCompatActivity {
         setContentView(R.layout.sopalletres);
 
         final String[] Lletres = getResources().getStringArray(R.array.paraules);
-        final int[] Puntuacio = {0};
+
 
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
         FuncionalitatBoto(Lletres, Puntuacio, btn);
-
-
     }
 
     private void GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
@@ -61,15 +62,16 @@ public class SopaLletres extends AppCompatActivity {
                 btnr[columna][fila] = new Button(this);
                 btnr[columna][fila].setText(String.valueOf(Lletres[columna].charAt(fila)));
                 trSopaLletres.addView(btnr[columna][fila]);
-
             }
         }
     }
 
     private void SopaDeLletresVertical(String[] Lletres, Button[][] btnc){
         for (int i = 0; i < Lletres.length; i++) {
+
             btnc[i][1].setText(String.valueOf(Lletres[0].charAt(i)));
             btnc[i][3].setText(String.valueOf(Lletres[2].charAt(i)));
+
         }
     }
 
@@ -84,13 +86,13 @@ public class SopaLletres extends AppCompatActivity {
 
             TextView tv = new TextView(this);
             tv.setText(String.valueOf(Lletres[columna]));
-            //tv.getPaint().setStrikeThruText(true);
 
             trParaulesATrobar.addView(tv);
+            tv.setTextSize(28);
         }
     }
 
-    private int[] FuncionalitatBoto(String[] Lletres, int[] Puntuacio, Button[][] btn){
+    private void FuncionalitatBoto(String[] Lletres, int[] Puntuacio, Button[][] btn){
         Button[][] finalBtnr = btn;
         String paraula = "";
         StringBuilder paraulaB = new StringBuilder(paraula);
@@ -152,13 +154,14 @@ public class SopaLletres extends AppCompatActivity {
 
                             }
                         }
-                        System.out.println(Puntuacio[0]);
+                        if (Puntuacio[0] == 40){
+                            DialegPartidaCompletada().show();
+                        }
                         finalBtnr[finalColumna][finalFila].setBackgroundColor(Color.RED);
                     }
                 });
             }
         }
-        return Puntuacio;
     }
 
     private void PuntuacioBaseDeDades(int[] Puntuacio){
@@ -168,16 +171,15 @@ public class SopaLletres extends AppCompatActivity {
         String BASE_DADES = "SopaLletres";
         String TAULA = "Puntuacions";
         Calendar cal = new GregorianCalendar();
-        String data = cal.get(Calendar.DAY_OF_MONTH) + "" + cal.get(Calendar.MONTH) + "" + cal.get(Calendar.YEAR);
-
+        String data = cal.get(Calendar.DAY_OF_MONTH) + "" + cal.get(Calendar.MONTH) + "" +
+                cal.get(Calendar.YEAR);
 
         try {
             baseDades = this.openOrCreateDatabase(BASE_DADES, MODE_PRIVATE, null);
-
             baseDades.execSQL("CREATE TABLE IF NOT EXISTS " + TAULA + "(puntuacio INT(4), " +
                     "data VARCHAR(20));");
-
-            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" + dPuntuacio + "," + data + ");");
+            baseDades.execSQL("INSERT INTO " + TAULA + " (puntuacio, data)" + " VALUES " + "(" +
+                    dPuntuacio + "," + data + ");");
 
         }finally {
             if (baseDades != null){
@@ -185,4 +187,16 @@ public class SopaLletres extends AppCompatActivity {
             }
         }
     }
+
+    public Dialog DialegPartidaCompletada () {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.dialog_start_game)
+                .setNegativeButton(R.string.start, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        return builder.create();
+    }
+
 }

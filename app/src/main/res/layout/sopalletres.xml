@@ -6,62 +6,48 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="348dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="40dp"
-        android:background="#D9D9D9"
-        android:gravity="center"
-        android:text="5:00"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tlSopa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/tvParaules"
-        android:layout_width="345dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="336dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="46dp"
         android:background="#D9D9D9"
         android:gravity="center"
         android:text="Paraules a trobar"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/tlParaulesATrobar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tlSopa" />
 
     <TableLayout
         android:id="@+id/tlSopa"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="37dp"
+        android:layout_width="352dp"
+        android:layout_height="223dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/tvParaules"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tlParaulesATrobar"
-        android:layout_width="374dp"
-        android:layout_height="143dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="34dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="41dp"
         android:background="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvParaules"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvParaules" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
