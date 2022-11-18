@@ -17,10 +17,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    /*
-        Diagrama UML
-    */
-
     //Atributs de puntuacio i data recuperada de la base de dades
     private int puntuacioRecuperada = 0;
     private String dataRecuperada = "";
