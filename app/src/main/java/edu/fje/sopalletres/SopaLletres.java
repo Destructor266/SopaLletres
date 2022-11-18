@@ -224,7 +224,7 @@ public class SopaLletres extends AppCompatActivity {
      * @return Dialog.
      */
 
-    public Dialog DialegPartidaCompletada () {
+    private Dialog DialegPartidaCompletada () {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.dialog_start_game)
                 .setNegativeButton(R.string.start, new DialogInterface.OnClickListener() {
