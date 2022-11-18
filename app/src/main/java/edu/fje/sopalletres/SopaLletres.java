@@ -221,7 +221,7 @@ public class SopaLletres extends AppCompatActivity {
 
     /**
      * Mostrar un dialeg.
-     * @return el dialeg creat.
+     * @return Dialog.
      */
 
     public Dialog DialegPartidaCompletada () {
