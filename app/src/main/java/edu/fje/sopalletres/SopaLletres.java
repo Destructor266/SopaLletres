@@ -31,22 +31,30 @@ public class SopaLletres extends AppCompatActivity {
     };
     */
 
+    //Array de botons per fer el tauler i puntuacio aconseguida per paraula
     private Button[][] btn = new Button[6][4];
-    final int[] Puntuacio = {0};
+    private final int[] Puntuacio = {0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
+        // Recuperacio de les strings dins del xml i les guarda en un array
+        final String[] Lletres = getResources().getStringArray(R.array.paraules);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sopalletres);
 
-        final String[] Lletres = getResources().getStringArray(R.array.paraules);
-
-
+        // Crides a les funcions de la classe
         GenerarSopaLleteres(Lletres, btn);
         SopaDeLletresVertical(Lletres, btn);
         GenerarParaulesATrobar(Lletres);
         FuncionalitatBoto(Lletres, Puntuacio, btn);
     }
+
+    /**
+     * Posa en horitzontal algunes de les paraules del xml dins del tauler de joc.
+     * @param Lletres
+     * @param btnr
+     */
 
     private void GenerarSopaLleteres(String[] Lletres, Button[][] btnr){
         TableLayout TlSopaLletres = findViewById(R.id.tlSopa);
@@ -66,6 +74,12 @@ public class SopaLletres extends AppCompatActivity {
         }
     }
 
+    /**
+     * Posa en vertical algunes de les paraules del xml dins del tauler de joc.
+     * @param Lletres
+     * @param btnc
+     */
+
     private void SopaDeLletresVertical(String[] Lletres, Button[][] btnc){
         for (int i = 0; i < Lletres.length; i++) {
 
@@ -74,6 +88,11 @@ public class SopaLletres extends AppCompatActivity {
 
         }
     }
+
+    /**
+     * Posa en una taula les paraules a trobar extretes del xml.
+     * @param Lletres
+     */
 
     private void GenerarParaulesATrobar(String[] Lletres){
         TableLayout tlParaulesATrobar = findViewById(R.id.tlParaulesATrobar);
@@ -91,6 +110,13 @@ public class SopaLletres extends AppCompatActivity {
             tv.setTextSize(28);
         }
     }
+
+    /**
+     * S'encarrega de manegar la puntuacio aconseguida, cambiar el color dels botons premuts i marcar les paraules trobades.
+     * @param Lletres
+     * @param Puntuacio
+     * @param btn
+     */
 
     private void FuncionalitatBoto(String[] Lletres, int[] Puntuacio, Button[][] btn){
         Button[][] finalBtnr = btn;
@@ -164,6 +190,11 @@ public class SopaLletres extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inserta la puntuacio a la base de dades junt amb la data de quan es va conseguir.
+     * @param Puntuacio
+     */
+
     private void PuntuacioBaseDeDades(int[] Puntuacio){
         SQLiteDatabase baseDades = null;
         int dPuntuacio = Puntuacio[0];
@@ -187,6 +218,11 @@ public class SopaLletres extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Mostrar un dialeg.
+     * @return el dialeg creat.
+     */
 
     public Dialog DialegPartidaCompletada () {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

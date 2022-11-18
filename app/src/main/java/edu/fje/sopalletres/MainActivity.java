@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Diagrama UML
     */
 
+    //Atributs de puntuacio i data recuperada de la base de dades
     private int puntuacioRecuperada = 0;
     private String dataRecuperada = "";
 
@@ -38,15 +39,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
+        //Crides a les funcions de la clase no sobreescrites
+
         RecuperadaDades();
         LeaderBoard();
     }
+
+    // Canvia la activitat al premer el boto "Jugar"
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent(this, SopaLletres.class);
         startActivity(intent);
     }
+
+    //Mostra el menu d'opcions i al premer l'opcio "ajuda" crida al component webview
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,6 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /**
+     * Mostra el component webview amb una explicacio de l'aplicacio.
+     */
 
     private void obrirAjuda() {
         setContentView(R.layout.webview);
@@ -91,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /**
+     * Recupera les puntuacions i les dates de la base de dades.
+     */
+
     private void RecuperadaDades(){
         SQLiteDatabase baseDades = null;
         String BASE_DADES = "SopaLletres";
@@ -115,6 +130,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    /**
+     * Mostra la puntuacio i les dates recuperades de una base de dades en la pantalla principal.
+     */
 
     private void LeaderBoard(){
         LinearLayout LlTaulaPuntuacions = findViewById(R.id.TaulaPuntuacions);
